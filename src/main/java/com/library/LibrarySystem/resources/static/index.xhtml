@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 28px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .tabs {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: #e2e8f0;
+            color: #4a5568;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .content-box {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f7fafc;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .badge-danger {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .badge-warning {
+            background: #feebc8;
+            color: #7c2d12;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: #667eea;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #718096;
+        }
+
+        .error-message {
+            background: #fed7d7;
+            color: #742a2a;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // API Configuration
+        const API_URL = 'http://localhost:8080/api';
+
+        // API Service
+        const api = {
+            login: (username, password) => 
+                fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                }).then(r => r.json()),
+            
+            books: {
+                getAll: () => fetch(`${API_URL}/books`).then(r => r.json()),
+                getById: (id) => fetch(`${API_URL}/books/${id}`).then(r => r.json()),
+                create: (data) => fetch(`${API_URL}/books`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).then(r => r.json()),
+                update: (id, data) => fetch(`${API_URL}/books/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).then(r => r.json()),
+                delete: (id) => fetch(`${API_URL}/books/${id}`, {
+                    method: 'DELETE'
+                }).then(r => r.json()),
+                search: (query) => fetch(`${API_URL}/books/search?title=${query}`).then(r => r.json())
+            },
+            
+            members: {
+                getAll: () => fetch(`${API_URL}/members`).then(r => r.json()),
+                getById: (id) => fetch(`${API_URL}/members/${id}`).then(r => r.json()),
+                create: (data) => fetch(`${API_URL}/members`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).then(r => r.json()),
+                update: (id, data) => fetch(`${API_URL}/members/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).then(r => r.json()),
+                delete: (id) => fetch(`${API_URL}/members/${id}`, {
+                    method: 'DELETE'
+                }).then(r => r.json())
+            },
+            
+            transactions: {
+                getAll: () => fetch(`${API_URL}/transactions`).then(r => r.json()),
+                getActive: () => fetch(`${API_URL}/transactions/active`).then(r => r.json()),
+                getOverdue: () => fetch(`${API_URL}/transactions/overdue`).then(r => r.json()),
+                borrow: (memberId, bookId) => fetch(`${API_URL}/transactions/borrow`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ memberId, bookId })
+                }).then(r => r.json()),
+                return: (transactionId) => fetch(`${API_URL}/transactions/return/${transactionId}`, {
+                    method: 'POST'
+                }).then(r => r.json())
+            }
+        };
+
+        // Login Component
+        function Login({ onLogin }) {
+            const [username, setUsername] = useState('');
+            const [password, setPassword] = useState('');
+            const [error, setError] = useState('');
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setError('');
+                
+                try {
+                    const response = await api.login(username, password);
+                    if (response.userId) {
+                        onLogin(response);
+                    } else {
+                        setError('Invalid credentials');
+                    }
+                } catch (err) {
+                    setError('Login failed. Please try again.');
+                }
+            };
+
+            return (
+                <div className="login-container">
+                    <div className="login-box">
+                        <h2>📚 Library Management System</h2>
+                        {error && <div className="error-message">{error}</div>}
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label>Username</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <button type="submit" className="btn btn-primary" style={{width: '100%'}}>
+                                Login
+                            </button>
+                        </form>
+                        <div style={{marginTop: '20px', textAlign: 'center', color: '#718096', fontSize: '12px'}}>
+                            <p>Default credentials:</p>
+                            <p>Admin: admin / admin123</p>
+                            <p>Librarian: librarian / lib123</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Books Management Component
+        function BooksManagement() {
+            const [books, setBooks] = useState([]);
+            const [searchTerm, setSearchTerm] = useState('');
+            const [showModal, setShowModal] = useState(false);
+            const [editBook, setEditBook] = useState(null);
+            const [formData, setFormData] = useState({
+                title: '', author: '', isbn: '', category: '', totalCopies: 1
+            });
+
+            useEffect(() => {
+                loadBooks();
+            }, []);
+
+            const loadBooks = async () => {
+                try {
+                    const data = await api.books.getAll();
+                    setBooks(data);
+                } catch (err) {
+                    console.error('Failed to load books', err);
+                }
+            };
+
+            const handleSearch = async () => {
+                if (searchTerm) {
+                    const data = await api.books.search(searchTerm);
+                    setBooks(data);
+                } else {
+                    loadBooks();
+                }
+            };
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                try {
+                    if (editBook) {
+                        await api.books.update(editBook.bookId, formData);
+                    } else {
+                        await api.books.create(formData);
+                    }
+                    setShowModal(false);
+                    setEditBook(null);
+                    setFormData({ title: '', author: '', isbn: '', category: '', totalCopies: 1 });
+                    loadBooks();
+                } catch (err) {
+                    alert('Operation failed');
+                }
+            };
+
+            const handleEdit = (book) => {
+                setEditBook(book);
+                setFormData({
+                    title: book.title,
+                    author: book.author,
+                    isbn: book.isbn,
+                    category: book.category,
+                    totalCopies: book.totalCopies
+                });
+                setShowModal(true);
+            };
+
+            const handleDelete = async (id) => {
+                if (window.confirm('Are you sure you want to delete this book?')) {
+                    try {
+                        await api.books.delete(id);
+                        loadBooks();
+                    } catch (err) {
+                        alert('Failed to delete book');
+                    }
+                }
+            };
+
+            const filteredBooks = books.filter(book =>
+                book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                book.author.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            return (
+                <div>
+                    <div style={{marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <h2>Books Management</h2>
+                        <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+                            + Add Book
+                        </button>
+                    </div>
+
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Search by title or author..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+                    </div>
+
+                    <div className="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>ISBN</th>
+                                    <th>Category</th>
+                                    <th>Available</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredBooks.map(book => (
+                                    <tr key={book.bookId}>
+                                        <td>{book.bookId}</td>
+                                        <td>{book.title}</td>
+                                        <td>{book.author}</td>
+                                        <td>{book.isbn}</td>
+                                        <td>{book.category}</td>
+                                        <td>{book.availableCopies}/{book.totalCopies}</td>
+                                        <td>
+                                            <span className={`badge ${book.available ? 'badge-success' : 'badge-danger'}`}>
+                                                {book.available ? 'Available' : 'Unavailable'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div className="action-buttons">
+                                                <button className="btn btn-secondary" onClick={() => handleEdit(book)}>
+                                                    Edit
+                                                </button>
+                                                <button className="btn btn-danger" onClick={() => handleDelete(book.bookId)}>
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {filteredBooks.length === 0 && (
+                            <div className="empty-state">
+                                <p>No books found</p>
+                            </div>
+                        )}
+                    </div>
+
+                    {showModal && (
+                        <div className="modal" onClick={() => setShowModal(false)}>
+                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                <div className="modal-header">
+                                    <h3>{editBook ? 'Edit Book' : 'Add New Book'}</h3>
+                                    <button className="close-btn" onClick={() => setShowModal(false)}>×</button>
+                                </div>
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-group">
+                                        <label>Title *</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={formData.title}
+                                            onChange={(e) => setFormData({...formData, title: e.target.value})}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Author *</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={formData.author}
+                                            onChange={(e) => setFormData({...formData, author: e.target.value})}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>ISBN *</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={formData.isbn}
+                                            onChange={(e) => setFormData({...formData, isbn: e.target.value})}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Category *</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={formData.category}
+                                            onChange={(e) => setFormData({...formData, category: e.target.value})}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Total Copies *</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            value={formData.totalCopies}
+                                            onChange={(e) => setFormData({...formData, totalCopies: parseInt(e.target.value)})}
+                                            min="1"
+                                            required
+                                        />
+                                    </div>
+                                    <div style={{display: 'flex', gap: '10px'}}>
+                                        <button type="submit" className="btn btn-primary" style={{flex: 1}}>
+                                            {editBook ? 'Update' : 'Add'} Book
+                                        </button>
+                                        <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Members Management Component
+        function MembersManagement() {
+            const [members, setMembers] = useState([]);
+            const [showModal, setShowModal] = useState(false);
+            const [editMember, setEditMember] = useState(null);
+            const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+
+            useEffect(() => {
+                loadMembers();
+            }, []);
+
+            const loadMembers = async () => {
+                try {
+                    const data = await api.members.getAll();
+                    setMembers(data);
+                } catch (err) {
+                    console.error('Failed to load members', err);
+                }
+            };
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                try {
+                    if (editMember) {
+                        await api.members.update(editMember.memberId, formData);
+                    } else {
+                        await api.members.create(formData);
+                    }
+                    setShowModal(false);
+                    setEditMember(null);
+                    setFormData({ name: '', email: '', phone: '' });
+                    loadMembers();
+                } catch (err) {
+                    alert('Operation failed');
+                }
+            };
+
+            const handleEdit = (member) => {
+                setEditMember(member);
+                setFormData({ name: member.name, email: member.email, phone: member.phone });
+                setShowModal(true);
+            };
+
+            const handleDelete = async (id) => {
+                if (window.confirm('Are you sure you want to delete this member?')) {
+                    try {
+                        await api.members.delete(id);
+                        loadMembers();
+                    } catch (err) {
+                        alert('Failed to delete member');
+                    }
+                }
+            };
+
+            return (
+                <div>
+                    <div style={{marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <h2>Members Management</h2>
+                        <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+                            + Add Member
+                        </button>
+                    </div>
+
+                    <div className="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Books Borrowed</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {members.map(member => (
+                                    <tr key={member.memberId}>
+                                        <td>{member.memberId}</td>
+                                        <td>{member.name}</td>
+                                        <td>{member.email}</td>
+                                        <td>{member.phone}</td>
+                                        <td>{member.borrowedBookIds.length}/{member.maxBooksAllowed}</td>
+                                        <td>
+                                            <span className={`badge ${member.active ? 'badge-success' : 'badge-danger'}`}>
+                                                {member.active ? 'Active' : 'Inactive'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div className="action-buttons">
+                                                <button className="btn btn-secondary" onClick={() => handleEdit(member)}>
+                                                    Edit
+                                                </button>
+                                                <button className="btn btn-danger" onClick={() => handleDelete(member.memberId)}>
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {showModal && (
+                        <div className="modal" onClick={() => setShowModal(false)}>
+                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                <div className="modal-header">
+                                    <h3>{editMember ? 'Edit Member' : 'Add New Member'}</h3>
+                                    <button className="close-btn" onClick={() => setShowModal(false)}>×</button>
+                                </div>
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-group">
+                                        <label>Name *</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Email *</label>
+                                        <input
+                                            type="email"
+                                            className="form-control"
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Phone *</label>
+                                        <input
+                                            type="tel"
+                                            className="form-control"
+                                            value={formData.phone}
+                                            onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                                            required
+                                        />
+                                    </div>
+                                    <div style={{display: 'flex', gap: '10px'}}>
+                                        <button type="submit" className="btn btn-primary" style={{flex: 1}}>
+                                            {editMember ? 'Update' : 'Add'} Member
+                                        </button>
+                                        <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Transactions Component
+        function TransactionsManagement() {
+            const [transactions, setTransactions] = useState([]);
+            const [books, setBooks] = useState([]);
+            const [members, setMembers] = useState([]);
+            const [showBorrowModal, setShowBorrowModal] = useState(false);
+            const [borrowData, setBorrowData] = useState({ memberId: '', bookId: '' });
+            const [filter, setFilter] = useState('all');
+
+            useEffect(() => {
+                loadData();
+            }, [filter]);
+
+            const loadData = async () => {
+                try {
+                    let transData;
+                    if (filter === 'active') {
+                        transData = await api.transactions.getActive();
+                    } else if (filter === 'overdue') {
+                        transData = await api.transactions.getOverdue();
+                    } else {
+                        transData = await api.transactions.getAll();
+                    }
+                    setTransactions(transData);
+                    
+                    const booksData = await api.books.getAll();
+                    const membersData = await api.members.getAll();
+                    setBooks(booksData);
+                    setMembers(membersData);
+                } catch (err) {
+                    console.error('Failed to load data', err);
+                }
+            };
+
+            const handleBorrow = async (e) => {
+                e.preventDefault();
+                try {
+                    await api.transactions.borrow(borrowData.memberId, borrowData.bookId);
+                    setShowBorrowModal(false);
+                    setBorrowData({ memberId: '', bookId: '' });
+                    loadData();
+                } catch (err) {
+                    alert('Failed to borrow book');
+                }
+            };
+
+            const handleReturn = async (transactionId) => {
+                try {
+                    await api.transactions.return(transactionId);
+                    loadData();
+                } catch (err) {
+                    alert('Failed to return book');
+                }
+            };
+
+            return (
+                <div>
+                    <div style={{marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <h2>Transactions</h2>
+                        <button className="btn btn-primary" onClick={() => setShowBorrowModal(true)}>
+                            + Borrow Book
+                        </button>
+                    </div>
+
+                    <div style={{marginBottom: '20px'}}>
+                        <select 
+                            className="form-control" 
+                            value={filter} 
+                            onChange={(e) => setFilter(e.target.value)}
+                            style={{maxWidth: '200px'}}
+                        >
+                            <option value="all">All Transactions</option>
+                            <option value="active">Active</option>
+                            <option value="overdue">Overdue</option>
+                        </select>
+                    </div>
+
+                    <div className="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Member ID</th>
+                                    <th>Book ID</th>
+                                    <th>Borrow Date</th>
+                                    <th>Due Date</th>
+                                    <th>Return Date</th>
+                                    <th>Status</th>
+                                    <th>Fine</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {transactions.map(trans => (
+                                    <tr key={trans.transactionId}>
+                                        <td>{trans.transactionId}</td>
+                                        <td>{trans.memberId}</td>
+                                        <td>{trans.bookId}</td>
+                                        <td>{new Date(trans.borrowDate).toLocaleDateString()}</td>
+                                        <td>{new Date(trans.dueDate).toLocaleDateString()}</td>
+                                        <td>{trans.returnDate ? new Date(trans.returnDate).toLocaleDateString() : '-'}</td>
+                                        <td>
+                                            <span className={`badge ${
+                                                trans.status === 'RETURNED' ? 'badge-success' :
+                                                trans.status === 'OVERDUE' ? 'badge-danger' : 'badge-warning'
+                                            }`}>
+                                                {trans.status}
+                                            </span>
+                                        </td>
+                                        <td>${trans.fine.toFixed(2)}</td>
+                                        <td>
+                                            {trans.status === 'BORROWED' || trans.status === 'OVERDUE' ? (
+                                                <button 
+                                                    className="btn btn-success" 
+                                                    onClick={() => handleReturn(trans.transactionId)}
+                                                >
+                                                    Return
+                                                </button>
+                                            ) : (
+                                                <span style={{color: '#718096'}}>-</span>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {showBorrowModal && (
+                        <div className="modal" onClick={() => setShowBorrowModal(false)}>
+                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                <div className="modal-header">
+                                    <h3>Borrow Book</h3>
+                                    <button className="close-btn" onClick={() => setShowBorrowModal(false)}>×</button>
+                                </div>
+                                <form onSubmit={handleBorrow}>
+                                    <div className="form-group">
+                                        <label>Select Member *</label>
+                                        <select
+                                            className="form-control"
+                                            value={borrowData.memberId}
+                                            onChange={(e) => setBorrowData({...borrowData, memberId: e.target.value})}
+                                            required
+                                        >
+                                            <option value="">Choose a member...</option>
+                                            {members.filter(m => m.active).map(member => (
+                                                <option key={member.memberId} value={member.memberId}>
+                                                    {member.memberId} - {member.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Select Book *</label>
+                                        <select
+                                            className="form-control"
+                                            value={borrowData.bookId}
+                                            onChange={(e) => setBorrowData({...borrowData, bookId: e.target.value})}
+                                            required
+                                        >
+                                            <option value="">Choose a book...</option>
+                                            {books.filter(b => b.available).map(book => (
+                                                <option key={book.bookId} value={book.bookId}>
+                                                    {book.bookId} - {book.title} (Available: {book.availableCopies})
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div style={{display: 'flex', gap: '10px'}}>
+                                        <button type="submit" className="btn btn-primary" style={{flex: 1}}>
+                                            Borrow Book
+                                        </button>
+                                        <button type="button" className="btn btn-secondary" onClick={() => setShowBorrowModal(false)}>
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Dashboard Component
+        function Dashboard() {
+            const [stats, setStats] = useState({
+                totalBooks: 0,
+                availableBooks: 0,
+                totalMembers: 0,
+                activeTransactions: 0,
+                overdueBooks: 0
+            });
+
+            useEffect(() => {
+                loadStats();
+            }, []);
+
+            const loadStats = async () => {
+                try {
+                    const books = await api.books.getAll();
+                    const members = await api.members.getAll();
+                    const activeTransactions = await api.transactions.getActive();
+                    const overdueTransactions = await api.transactions.getOverdue();
+
+                    setStats({
+                        totalBooks: books.length,
+                        availableBooks: books.filter(b => b.available).length,
+                        totalMembers: members.length,
+                        activeTransactions: activeTransactions.length,
+                        overdueBooks: overdueTransactions.length
+                    });
+                } catch (err) {
+                    console.error('Failed to load stats', err);
+                }
+            };
+
+            return (
+                <div>
+                    <h2 style={{marginBottom: '30px'}}>Dashboard</h2>
+                    <div className="stats-grid">
+                        <div className="stat-card">
+                            <h3>Total Books</h3>
+                            <div className="value">{stats.totalBooks}</div>
+                        </div>
+                        <div className="stat-card">
+                            <h3>Available Books</h3>
+                            <div className="value">{stats.availableBooks}</div>
+                        </div>
+                        <div className="stat-card">
+                            <h3>Total Members</h3>
+                            <div className="value">{stats.totalMembers}</div>
+                        </div>
+                        <div className="stat-card">
+                            <h3>Active Borrowings</h3>
+                            <div className="value">{stats.activeTransactions}</div>
+                        </div>
+                        <div className="stat-card">
+                            <h3>Overdue Books</h3>
+                            <div className="value">{stats.overdueBooks}</div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            const [user, setUser] = useState(null);
+            const [activeTab, setActiveTab] = useState('dashboard');
+
+            const handleLogin = (userData) => {
+                setUser(userData);
+            };
+
+            const handleLogout = () => {
+                setUser(null);
+                setActiveTab('dashboard');
+            };
+
+            if (!user) {
+                return <Login onLogin={handleLogin} />;
+            }
+
+            return (
+                <div className="container">
+                    <div className="header">
+                        <h1>📚 Library Management System</h1>
+                        <div className="user-info">
+                            <span>Welcome, {user.name} ({user.role})</span>
+                            <button className="btn btn-danger" onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="tabs">
+                        <div className="tab-buttons">
+                            <button 
+                                className={`tab-btn ${activeTab === 'dashboard' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('dashboard')}
+                            >
+                                Dashboard
+                            </button>
+                            <button 
+                                className={`tab-btn ${activeTab === 'books' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('books')}
+                            >
+                                Books
+                            </button>
+                            <button 
+                                className={`tab-btn ${activeTab === 'members' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('members')}
+                            >
+                                Members
+                            </button>
+                            <button 
+                                className={`tab-btn ${activeTab === 'transactions' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('transactions')}
+                            >
+                                Transactions
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="content-box">
+                        {activeTab === 'dashboard' && <Dashboard />}
+                        {activeTab === 'books' && <BooksManagement />}
+                        {activeTab === 'members' && <MembersManagement />}
+                        {activeTab === 'transactions' && <TransactionsManagement />}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
