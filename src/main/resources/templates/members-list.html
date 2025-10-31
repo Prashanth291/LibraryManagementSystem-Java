@@ -12,7 +12,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             min-height: 100vh;
             padding: 40px 20px;
             position: relative;
@@ -24,7 +24,7 @@
             position: absolute;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
             top: -250px;
             right: -250px;
             animation: float 8s ease-in-out infinite;
@@ -36,7 +36,7 @@
             position: absolute;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.18) 0%, transparent 70%);
             bottom: -200px;
             left: -200px;
             animation: float 10s ease-in-out infinite reverse;
@@ -46,6 +46,61 @@
         @keyframes float {
             0%, 100% { transform: translate(0, 0) scale(1); }
             50% { transform: translate(-30px, -30px) scale(1.1); }
+        }
+
+        .decorative-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            width: 120px;
+            height: 120px;
+            border: 4px solid #FFD700;
+            border-radius: 30px;
+            top: 10%;
+            left: 5%;
+            animation: rotate 18s linear infinite;
+        }
+
+        .shape-2 {
+            width: 90px;
+            height: 90px;
+            border: 4px solid #FF6B35;
+            border-radius: 50%;
+            top: 60%;
+            right: 8%;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .shape-3 {
+            width: 70px;
+            height: 70px;
+            background: #F7931E;
+            transform: rotate(45deg);
+            top: 35%;
+            right: 12%;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.15); opacity: 0.15; }
         }
 
         .container {
@@ -62,13 +117,14 @@
         }
 
         .header-section {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 40px 50px;
             margin-bottom: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideDown 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3),
+                        0 0 0 1px rgba(255, 215, 0, 0.2) inset;
+            animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes slideDown {
@@ -99,16 +155,16 @@
         .icon-wrapper {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            animation: pulseIcon 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
+        @keyframes pulseIcon {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
@@ -121,11 +177,12 @@
         h1 {
             font-size: 36px;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin: 0;
+            letter-spacing: -0.5px;
         }
 
         .action-buttons {
@@ -140,7 +197,7 @@
             font-size: 15px;
             font-weight: 700;
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -150,25 +207,26 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             color: white;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.9);
-            color: #667eea;
-            border: 2px solid #667eea;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: #FF6B35;
+            border: 2px solid #FF6B35;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.2);
         }
 
         .btn-secondary:hover {
-            background: #667eea;
+            background: #FF6B35;
             color: white;
             transform: translateY(-3px);
         }
@@ -230,12 +288,13 @@
         }
 
         .content-section {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s backwards;
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3),
+                        0 0 0 1px rgba(255, 215, 0, 0.2) inset;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
         }
 
         @keyframes slideUp {
@@ -255,7 +314,7 @@
         }
 
         .empty-state::before {
-            content: '📚';
+            content: '👥';
             font-size: 80px;
             display: block;
             margin-bottom: 20px;
@@ -285,7 +344,7 @@
         }
 
         thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
         }
 
         thead th {
@@ -297,6 +356,7 @@
             text-align: left;
             font-size: 13px;
             border: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         thead th:first-child {
@@ -313,13 +373,13 @@
         }
 
         tbody tr:nth-child(even) {
-            background: #f9f9f9;
+            background: #fffaf7;
         }
 
         tbody tr:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.08) 0%, rgba(255, 215, 0, 0.08) 100%);
             transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.2);
         }
 
         tbody td {
@@ -440,6 +500,12 @@
     </style>
 </head>
 <body>
+    <div class="decorative-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
     <div class="container">
         <div class="header-section">
             <div class="header-content">

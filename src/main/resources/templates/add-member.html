@@ -12,7 +12,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -27,7 +27,7 @@
             position: absolute;
             width: 450px;
             height: 450px;
-            background: rgba(255, 255, 255, 0.08);
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
             border-radius: 50%;
             top: -150px;
             left: -100px;
@@ -39,7 +39,7 @@
             position: absolute;
             width: 350px;
             height: 350px;
-            background: rgba(255, 255, 255, 0.06);
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.18) 0%, transparent 70%);
             border-radius: 50%;
             bottom: -100px;
             right: -100px;
@@ -51,17 +51,71 @@
             50% { transform: scale(1.1) rotate(10deg); opacity: 1; }
         }
 
+        .decorative-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.12;
+        }
+
+        .shape-1 {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #FFD700;
+            border-radius: 50%;
+            top: 20%;
+            left: 12%;
+            animation: rotate 15s linear infinite;
+        }
+
+        .shape-2 {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #FF6B35;
+            border-radius: 20px;
+            top: 65%;
+            right: 18%;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .shape-3 {
+            width: 50px;
+            height: 50px;
+            background: #F7931E;
+            transform: rotate(45deg);
+            top: 40%;
+            right: 15%;
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
-            border-radius: 24px;
+            border-radius: 28px;
             padding: 50px 60px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 520px;
+            box-shadow: 0 25px 80px rgba(255, 107, 53, 0.35), 
+                        0 0 0 1px rgba(255, 215, 0, 0.3) inset;
+            max-width: 550px;
             width: 100%;
             position: relative;
             z-index: 1;
-            animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes scaleIn {
@@ -84,13 +138,29 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
             animation: bounce 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .icon-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
 
         @keyframes bounce {
@@ -98,25 +168,31 @@
             50% { transform: translateY(-10px); }
         }
 
-        .icon-wrapper::before {
-            content: '👤';
-            font-size: 40px;
+        .icon-wrapper svg {
+            width: 42px;
+            height: 42px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
-            color: #667eea;
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 700;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
             color: #888;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 400;
         }
 
         form {
@@ -127,12 +203,13 @@
 
         .form-group {
             position: relative;
-            animation: slideInRight 0.5s ease-out backwards;
+            animation: slideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
         }
 
-        .form-group:nth-child(1) { animation-delay: 0.1s; }
-        .form-group:nth-child(2) { animation-delay: 0.2s; }
-        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(1) { animation-delay: 0.15s; }
+        .form-group:nth-child(2) { animation-delay: 0.25s; }
+        .form-group:nth-child(3) { animation-delay: 0.35s; }
+        .form-group:nth-child(4) { animation-delay: 0.45s; }
 
         @keyframes slideInRight {
             from {
@@ -147,13 +224,16 @@
 
         label {
             display: block;
-            color: #333;
+            color: #444;
             font-weight: 600;
             font-size: 14px;
             margin-bottom: 10px;
             transition: all 0.3s ease;
             position: relative;
-            padding-left: 8px;
+            padding-left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         label::before {
@@ -162,9 +242,9 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            width: 3px;
+            width: 4px;
             height: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #FFD700 100%);
             border-radius: 2px;
             transition: height 0.3s ease;
         }
@@ -173,50 +253,81 @@
             height: 100%;
         }
 
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            color: #F7931E;
+        }
+
         input {
             width: 100%;
-            padding: 15px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            padding: 16px 18px 16px 50px;
+            border: 2px solid #ffe8d6;
+            border-radius: 14px;
             font-size: 15px;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            background: #f9f9f9;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #fff9f5;
             color: #333;
+            font-weight: 500;
+        }
+
+        input::placeholder {
+            color: #aaa;
+            font-weight: 400;
         }
 
         input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #FF6B35;
             background: #fff;
-            box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 5px rgba(255, 107, 53, 0.12), 
+                        0 8px 20px rgba(247, 147, 30, 0.2);
             transform: translateY(-3px) scale(1.01);
         }
 
+        input:focus + .input-icon {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+            color: #FF6B35;
+        }
+
         input:hover:not(:focus) {
-            border-color: #bbb;
-            background: #fff;
+            border-color: #ffd4b3;
+            background: #fffaf7;
         }
 
         .form-group:focus-within label {
-            color: #667eea;
+            color: #FF6B35;
         }
 
         button[type="submit"] {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             color: white;
             border: none;
-            padding: 17px 40px;
-            border-radius: 12px;
+            padding: 18px 40px;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
             margin-top: 15px;
             position: relative;
             overflow: hidden;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         button[type="submit"]::before {
@@ -239,17 +350,18 @@
 
         button[type="submit"]:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 10px 35px rgba(255, 107, 53, 0.5);
         }
 
         button[type="submit"]:active {
             transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
         }
 
         .back-link {
             text-align: center;
             margin-top: 35px;
-            animation: fadeInUp 0.6s ease-out 0.4s backwards;
+            animation: fadeInUp 0.6s ease-out 0.55s backwards;
         }
 
         @keyframes fadeInUp {
@@ -264,7 +376,7 @@
         }
 
         .back-link a {
-            color: #667eea;
+            color: #FF6B35;
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
@@ -273,7 +385,7 @@
             gap: 10px;
             padding: 10px 20px;
             border-radius: 10px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
 
@@ -284,7 +396,7 @@
         }
 
         .back-link a:hover {
-            background: rgba(102, 126, 234, 0.12);
+            background: rgba(255, 107, 53, 0.12);
             transform: translateX(-5px);
         }
 
@@ -295,6 +407,7 @@
         @media (max-width: 600px) {
             .container {
                 padding: 40px 30px;
+                border-radius: 24px;
             }
             
             h1 {
@@ -306,16 +419,36 @@
                 height: 70px;
             }
 
-            .icon-wrapper::before {
-                font-size: 35px;
+            .icon-wrapper svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            input {
+                padding: 14px 16px 14px 46px;
+            }
+
+            button[type="submit"] {
+                padding: 16px 36px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="decorative-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
     <div class="container">
         <div class="header">
-            <div class="icon-wrapper"></div>
+            <div class="icon-wrapper">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
             <h1>Add a New Member</h1>
             <p class="subtitle">Register a new library member</p>
         </div>
@@ -323,16 +456,36 @@
         <form th:action="@{/members/save}" th:object="${member}" method="post">
             <div class="form-group">
                 <label>Name:</label>
-                <input type="text" th:field="*{name}" required placeholder="Enter full name" />
+                <div class="input-wrapper">
+                    <input type="text" th:field="*{name}" required placeholder="Enter full name" />
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
             </div>
+            
             <div class="form-group">
                 <label>Email:</label>
-                <input type="email" th:field="*{email}" required placeholder="member@example.com" />
+                <div class="input-wrapper">
+                    <input type="email" th:field="*{email}" required placeholder="member@example.com" />
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </div>
             </div>
+            
             <div class="form-group">
                 <label>Phone:</label>
-                <input type="text" th:field="*{phone}" required placeholder="+1 (555) 000-0000" />
+                <div class="input-wrapper">
+                    <input type="text" th:field="*{phone}" required placeholder="+1 (555) 000-0000" />
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                </div>
             </div>
+            
             <div class="form-group">
                 <button type="submit">Save Member</button>
             </div>

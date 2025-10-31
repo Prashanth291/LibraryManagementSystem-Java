@@ -12,7 +12,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             min-height: 100vh;
             padding: 40px 20px;
             position: relative;
@@ -24,7 +24,7 @@
             position: fixed;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
             top: -300px;
             right: -300px;
             animation: float 8s ease-in-out infinite;
@@ -36,7 +36,7 @@
             position: fixed;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.18) 0%, transparent 70%);
             bottom: -250px;
             left: -250px;
             animation: float 10s ease-in-out infinite reverse;
@@ -46,6 +46,61 @@
         @keyframes float {
             0%, 100% { transform: translate(0, 0) scale(1); }
             50% { transform: translate(-30px, -30px) scale(1.1); }
+        }
+
+        .decorative-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            width: 140px;
+            height: 140px;
+            border: 4px solid #FFD700;
+            border-radius: 30px;
+            top: 15%;
+            left: 8%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .shape-2 {
+            width: 100px;
+            height: 100px;
+            border: 4px solid #FF6B35;
+            border-radius: 50%;
+            top: 65%;
+            right: 10%;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            background: #F7931E;
+            transform: rotate(45deg);
+            top: 40%;
+            right: 15%;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.2); opacity: 0.15; }
         }
 
         .container {
@@ -76,13 +131,14 @@
             width: 120px;
             height: 120px;
             margin: 0 auto 30px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.35),
+                        0 0 0 1px rgba(255, 215, 0, 0.3) inset;
             animation: logoFloat 3s ease-in-out infinite;
             position: relative;
         }
@@ -95,6 +151,8 @@
         .logo-wrapper::before {
             content: '📚';
             font-size: 60px;
+            position: relative;
+            z-index: 1;
         }
 
         .logo-wrapper::after {
@@ -102,17 +160,17 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #FFD700 100%);
             border-radius: 30px;
-            opacity: 0.3;
+            opacity: 0.4;
             filter: blur(20px);
             z-index: -1;
-            animation: pulse 2s ease-in-out infinite;
+            animation: pulseGlow 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.15); opacity: 0.5; }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.15); opacity: 0.6; }
         }
 
         h1 {
@@ -120,13 +178,14 @@
             font-weight: 800;
             color: white;
             margin-bottom: 15px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
         }
 
         .subtitle {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
             font-size: 18px;
             font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .features-grid {
@@ -137,12 +196,13 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.25),
+                        0 0 0 1px rgba(255, 215, 0, 0.2) inset;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
             animation: fadeInUp 0.6s ease-out backwards;
@@ -170,7 +230,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.4s ease;
@@ -182,20 +242,21 @@
 
         .feature-card:hover {
             transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(255, 107, 53, 0.35),
+                        0 0 0 1px rgba(255, 215, 0, 0.3) inset;
         }
 
         .feature-icon {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 35px;
             margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
             transition: transform 0.3s ease;
         }
 
@@ -208,7 +269,7 @@
             font-weight: 700;
             color: #333;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -225,13 +286,13 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            color: #667eea;
+            color: #FF6B35;
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
             padding: 12px 24px;
             border-radius: 12px;
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(255, 107, 53, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -244,7 +305,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.2), transparent);
             transition: left 0.5s ease;
         }
 
@@ -259,8 +320,9 @@
         }
 
         .feature-link:hover {
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(255, 107, 53, 0.2);
             transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
         }
 
         .feature-link:hover::after {
@@ -274,11 +336,12 @@
         }
 
         .logout-form {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 30px 40px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.25),
+                        0 0 0 1px rgba(255, 215, 0, 0.2) inset;
         }
 
         .logout-button {
@@ -290,12 +353,13 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 6px 25px rgba(244, 67, 54, 0.4);
             position: relative;
             overflow: hidden;
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .logout-button::before {
@@ -371,6 +435,12 @@
     </style>
 </head>
 <body>
+    <div class="decorative-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
     <div class="container">
         <div class="header">
             <div class="logo-wrapper"></div>
